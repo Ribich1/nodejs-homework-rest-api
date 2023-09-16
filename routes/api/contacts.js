@@ -1,6 +1,6 @@
 const express = require("express");
 const Joi = require("joi");
-const contacts = require("../../models/contacts/index");
+const contacts = require("../../models/contacts");
 const router = express.Router();
 const HttpError = require("../../helpers/HttpError");
 
@@ -68,7 +68,7 @@ router.put("/:id", async (req, res, next) => {
       throw HttpError(400, error.message);
     }
     const { id } = req.params;
-    const result = await contacts.updateById(id, req.body);
+    const result = await contacts.updateContact(id, req.body);
     if (!result) {
       throw HttpError(404, "Not found");
     }
