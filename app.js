@@ -2,7 +2,6 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 
-
 const contactsRouter = require("./routes/api/contacts");
 
 const app = express();
@@ -11,7 +10,7 @@ const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
 app.use(logger(formatsLogger));
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 
 app.use("/api/contacts", contactsRouter);
 
@@ -25,3 +24,13 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+
+const mongoose = require("mongoose");
+const DB_HOST =
+  "mongodb+srv://Yevhen:QzOoDlnZHbiRP0Tx@cluster0.oheb2op.mongodb.net/db-contacts?retryWrites=true&w=majority";
+  mongoose.set('strictQuery', true)
+
+mongoose
+  .connect(DB_HOST)
+  .then(() => console.log("Database connect success"))
+  .catch((error) => console.log(error.message));
